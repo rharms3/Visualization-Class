@@ -59,5 +59,42 @@ d3.select("svg").append("g")
     .call(xAxis);
 }
 </script>
+
+var x = d3.scaleBand().domain([0,1,2,3,4,5]).range([0,200]);
+var y = d3.scaleLinear().domain([0,42]).range([200,0]);
+const margin = ( 50 );
+const height = ( 200 );
+const width = ( 200 );
+
+xdomain = [0,42];
+xrange = [0,100];
+ydomain = [0,5];
+yrange = [100,250];
+
+xs = d3.scaleLinear().domain(xdomain).range(xrange);
+ys = d3.scaleLinear().domain(ydomain).range(yrange);
+
+d3.select("svg")
+    .attr("width",width + margin + margin)
+    .attr("height",height + margin + margin)
+    .append("g")
+       .attr("transform","translate("+ margin +","+ margin +")")
+       .selectAll('rect')
+	  .data(data)
+	  .enter()
+	  .append('rect')
+	    .attr('x',function(d,i) {return x(i);})
+	    .attr('y',function(d,i) {return y(d);})
+	    .attr('width',x.bandwidth())
+	    .attr('height', function(d) { return height - y(d);});
+
+d3.select("svg").append("g")
+    .attr("transform","translate("+ margin +","+ margin +")")
+    .call(d3.axisLeft(y))
+
+d3.select("svg").append("g")
+    .attr("transform","translate("+ margin +","+(height + margin)+")")
+    .call(d3.axisBottom(x));
+
 </body>
 </html>

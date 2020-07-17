@@ -3,13 +3,11 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <script src='FirstTry.js'></script>
 <style> circle {fill: lightblue; stroke: black;} </style>
-<head>
-  <p> this is a new publishing test </p>
-</head>
+
 <body onload='init()'>
 <svg width=600 height=600>
 </svg>
-<!-- <script>
+<script>
 async function init() {
 const data = await d3.csv('https://flunky.github.io/cars2017.csv');
 
@@ -58,52 +56,7 @@ d3.select("svg").append("g")
     .attr("transform","translate("+ margin +","+(height + margin)+")")
     .call(xAxis);
 }
-</script> -->
-
-<script src='https://d3js.org/d3.v5.min.js'></script>
-<style> path {stroke: black;}</style>
-<body>
-<svg width=300 height=300>
-</svg>
-
-<script>
-
-var x = d3.scaleBand().domain([0,1,2,3,4,5]).range([0,200]);
-var y = d3.scaleLinear().domain([0,42]).range([200,0]);
-const margin = ( 50 );
-const height = ( 200 );
-const width = ( 200 );
-
-xdomain = [0,42];
-xrange = [0,100];
-ydomain = [0,5];
-yrange = [100,250];
-
-xs = d3.scaleLinear().domain(xdomain).range(xrange);
-ys = d3.scaleLinear().domain(ydomain).range(yrange);
-
-d3.select("svg")
-    .attr("width",width + margin + margin)
-    .attr("height",height + margin + margin)
-    .append("g")
-       .attr("transform","translate("+ margin +","+ margin +")")
-       .selectAll('rect')
-	  .data(data)
-	  .enter()
-	  .append('rect')
-	    .attr('x',function(d,i) {return x(i);})
-	    .attr('y',function(d,i) {return y(d);})
-	    .attr('width',x.bandwidth())
-	    .attr('height', function(d) { return height - y(d);});
-
-d3.select("svg").append("g")
-    .attr("transform","translate("+ margin +","+ margin +")")
-    .call(d3.axisLeft(y))
-
-d3.select("svg").append("g")
-    .attr("transform","translate("+ margin +","+(height + margin)+")")
-    .call(d3.axisBottom(x));
-
 </script>
+
 </body>
 </html>

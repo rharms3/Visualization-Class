@@ -12,7 +12,7 @@ var crime_dataObj;
 var var_year = 2015;  // set a call to a subroutine and pass the year based on the selection???
 
 d3.select('svg')
-  .attr("width",600)
+  .attr("width",800)
   .attr("height",600);
 
   d3.select('body')
@@ -39,8 +39,13 @@ const url = "http://s3-us-gov-west-1.amazonaws.com/cg-d4b776d0-d898-4153-90c8-83
 //    console.log(data)
 // });
 
-d3.csv(proxyurl + url).then(function (data) {
-  data.forEach(function(d) {
+//load csv and copy to global variable
+const crime_dataObj = await d3.csv(proxyurl + url);
+filtered = crime_dataObj.filter(function(data) {
+return (data.state_abbr != "" & data.year == var_year);
+})
+
+filtered.forEach(function(d) {
     d.population = +d.population;
     d.aggravated_assault= +d.aggravated_assault;
     d.burglary= +d.burglary;
@@ -53,11 +58,51 @@ d3.csv(proxyurl + url).then(function (data) {
     d.robbery= +d.robbery;
     d.violent_crime= +d.violent_crime;
     d.comb_rape = +d.rape_legacy + d.rape_revised;
-    d.total_crime = d.violent_crime + d.property_crime;
+    d.total_crime = +d.violent_crime + d.property_crime;
     d.year = +d.year;
-  });
+  })
 
-  //console.log(data);
+// .then(function(data) {
+//   data.forEach(function(d) {
+//     d.population = +d.population;
+//     d.aggravated_assault= +d.aggravated_assault;
+//     d.burglary= +d.burglary;
+//     d.homicide= +d.homicide;
+//     d.larceny= +d.larceny;
+//     d.motor_vehicle_theft= +d.motor_vehicle_theft;
+//     d.property_crime= +d.property_crime;
+//     d.rape_legacy= +d.rape_legacy;
+//     d.rape_revised= +d.rape_revised;
+//     d.robbery= +d.robbery;
+//     d.violent_crime= +d.violent_crime;
+//     d.comb_rape = +d.rape_legacy + d.rape_revised;
+//     d.total_crime = +d.violent_crime + d.property_crime;
+//     d.year = +d.year;
+//   })
+// })
+
+//console.log(filtered);
+
+// d3.csv(proxyurl + url)
+// .then(function(data) {
+//   data.forEach(function(d) {
+//     d.population = +d.population;
+//     d.aggravated_assault= +d.aggravated_assault;
+//     d.burglary= +d.burglary;
+//     d.homicide= +d.homicide;
+//     d.larceny= +d.larceny;
+//     d.motor_vehicle_theft= +d.motor_vehicle_theft;
+//     d.property_crime= +d.property_crime;
+//     d.rape_legacy= +d.rape_legacy;
+//     d.rape_revised= +d.rape_revised;
+//     d.robbery= +d.robbery;
+//     d.violent_crime= +d.violent_crime;
+//     d.comb_rape = +d.rape_legacy + d.rape_revised;
+//     d.total_crime = +d.violent_crime + d.property_crime;
+//     d.year = +d.year;})
+//   });
+
+  // console.log(cleaned);
 
 //});
 
@@ -94,25 +139,30 @@ d3.csv(proxyurl + url).then(function (data) {
 // console.log("min = " + min);
 // console.log("max = " + max);
 // console.log("test pop = " + crime_dataObj.population)
-var xlength = d3.max(data, function(d) { return d.total_crime;});
-var ylength = d3.max(data, function(d) { return d.population;});
-var xlengthmin = d3.min(data, function(d) { return d.total_crime;});
-var ylengthmin = d3.min(data, function(d) { return d.population;});
+var xlength = d3.max(filtered, function(d) { return d.total_crime;});
+var ylength = d3.max(filtered, function(d) { return d.population;});
+var xlengthmin = d3.min(filtered, function(d) { return d.total_crime;});
+var ylengthmin = d3.min(filtered, function(d) { return d.population;});
 
-var x = d3.scaleLog().domain([xlengthmin,xlength]).range([0,800]);  //500
-var y = d3.scaleLog().domain([ylengthmin,ylength]).range([600,0]);  //500
+//console.log("xmax =" + xlength);
+//console.log("xmin =" + xlengthmin);
+//console.log("ymax =" + ylength);
+// console.log("ymin =" + ylengthmin);
 
 const margin = ( 50 );
 const height = ( 600 );
-const width = ( 800 );
+const width = ( 600 );
 const radplus = ( 2 );
+
+var x = d3.scaleLog().domain([xlengthmin,xlength]).range([0,width]);  //500
+var y = d3.scaleLog().domain([ylengthmin,ylength]).range([height,0]);  //500
 
 // var coordinates = d3.mouse(this);
 // var xm = coordinates[0];
 // var ym = coordinates[1];
 
 var xAxis = d3.axisBottom(x)
-        .tickValues([100000,500000,1000000,5000000,xlength])
+        .tickValues([(xlength*.25),(xlength*.5),(xlength*.75),xlength])
         .tickFormat(d3.format(".0s"));
 
 var yAxis = d3.axisLeft(y)
@@ -134,31 +184,47 @@ ys = d3.scaleLog().domain(ydomain).range(yrange);
     .append("g")
         .attr("transform","translate("+ margin +","+ margin +")")
     .selectAll('circle')
-	  .data(data)
+	  .data(filtered)
 	  .enter()
-    .filter(function(data) { return data.state_abbr != "" })
-    .filter(function(data) { return data.year == var_year})
+//    .filter(function(data) { return data.state_abbr != "" })
+//    .filter(function(data) { return data.year == var_year})
 	  .append('circle')
-	    .attr('cx',function(data) {return xs(function(d) { return d.total_crime;});}) //xsdata.total_crime
-	    .attr('cy',function(data) {return ys(function(d) { return d.population;});})  //ys population
+	    .attr('cx',function(data) {return xs(data.total_crime);}) //xsdata.total_crime;; function(d) { return d.total_crime;}
+	    .attr('cy',function(data) {return ys(data.population);})  //ys population
 	    .attr('r',function(data,i) {return +radplus + +5;})
       // .attr('cx',function(d) {return xs(d.AverageCityMPG);})
       // .attr('cy',function(d) {return ys(d.AverageHighwayMPG);})
       // .attr('r',function(d) {return +radplus + +d.EngineCylinders;})
-    .on("mouseover", function(d){
-      d3.select(this).raise()
-      d3.select(this.parentNode)
-        .append("text")
-        .attr("class", "car")
-        .attr('x',function () { return d3.mouse(this)[0];})
-        .attr('y',function () { return d3.mouse(this)[1];})
-        .text(d.year + ": Total Crime = " + d.total_crime + " in " + d.state_abbr)
+    // .on("mouseover", function(d){
+    //   d3.select(this).raise()
+    //   d3.select(this.parentNode)
+    //     .append("text")
+    //     .attr("class", "car")
+    //     .attr('x',function () { return d3.mouse(this)[0];})
+    //     .attr('y',function () { return d3.mouse(this)[1];})
+    //     .text(d.year + ": Total Crime = " + d.total_crime + " in " + d.state_abbr)
+
     //    .text(d.Make)
-     console.log(d.state_abbr);
+    // console.log(d.state_abbr);
+    .on("mouseover", function(d){
+               current_position = d3.mouse(this);
+               var tooltipDiv = document.getElementById('tooltip');
+               tooltipDiv.innerHTML = d.id;
+               tooltipDiv.style.top = + current_position[1];
+               tooltipDiv.style.left =  + current_position[0];
+               tooltipDiv.style.display = "block";
+
+               d3.select(this).style("fill", "red")
+               .raise();
     })
     .on("mouseout", function(d){
-      d3.selectAll("text.car").remove()
-      d3.select(this).lower();
+      // d3.selectAll("text.car").remove()
+      // d3.select(this).lower();
+
+               d3.select(this).style("fill", "lightblue")
+               .lower();
+               var tooltipDiv = document.getElementById('tooltip');
+               tooltipDiv.style.display = "none";
     })
 
 d3.select("svg").append("g")
@@ -182,9 +248,6 @@ d3.select("svg").append("text")
     .attr("transform","translate("+ (margin + (width / 2))+","+(height + margin + 30)+")")
     // .attr("transform","translate("+ margin +(width / 2)+",+(height + margin)+")")
     .text("Total Crime");
-
-    });
-
-}
+  };
 
   init();

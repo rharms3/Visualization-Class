@@ -1,0 +1,43 @@
+/* body{
+  background-color: red;
+} */
+
+circle {
+          fill: lightblue;
+          stroke: black;
+        }
+/* comments code */
+/* line {
+  color: red;
+} */
+
+h1 {
+  color: green;
+  font-size: 30px;
+  font-style: italic;
+}
+.car{
+  color: green;
+  font-size:20px;
+  font-style:italic;
+  font-weight: bold;
+  letter-spacing: 5px;
+}
+
+.popup{
+  // create a box that shows all data??
+}
+
+.xaxislab{
+  color: lightblue;
+  font-size:15px;
+  font-weight:bold;
+}
+.yaxislab{
+  color: lightblue;
+  font-size:15px;
+  font-weight:bold;
+}
+/* svg {
+  color:red;
+} */

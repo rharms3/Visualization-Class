@@ -151,7 +151,7 @@ var ylengthmin = d3.min(filtered, function(d) { return d.population;});
 
 const margin = ( 50 );
 const height = ( 600 );
-const width = ( 600 );
+const width = ( 800 );
 const radplus = ( 2 );
 
 var x = d3.scaleLog().domain([xlengthmin,xlength]).range([0,width]);  //500
@@ -195,37 +195,20 @@ ys = d3.scaleLog().domain(ydomain).range(yrange);
       // .attr('cx',function(d) {return xs(d.AverageCityMPG);})
       // .attr('cy',function(d) {return ys(d.AverageHighwayMPG);})
       // .attr('r',function(d) {return +radplus + +d.EngineCylinders;})
-      
-    // .on("mouseover", function(d){
-    //   d3.select(this).raise()
-    //   d3.select(this.parentNode)
-    //     .append("text")
-    //     .attr("class", "car")
-    //     .attr('x',function () { return d3.mouse(this)[0];})
-    //     .attr('y',function () { return d3.mouse(this)[1];})
-    //     .text(d.year + ": Total Crime = " + d.total_crime + " in " + d.state_abbr)
-
+    .on("mouseover", function(d){
+      d3.select(this).raise()
+      d3.select(this.parentNode)
+        .append("text")
+        .attr("class", "car")
+        .attr('x',function () { return d3.mouse(this)[0];})
+        .attr('y',function () { return d3.mouse(this)[1];})
+        .text(d.year + ": Total Crime = " + d.total_crime + " in " + d.state_abbr)
     //    .text(d.Make)
     // console.log(d.state_abbr);
-    .on("mouseover", function(d){
-               current_position = d3.mouse(this);
-               var tooltipDiv = document.getElementById('tooltip');
-               tooltipDiv.innerHTML = d.id;
-               tooltipDiv.style.top = + current_position[1];
-               tooltipDiv.style.left =  + current_position[0];
-               tooltipDiv.style.display = "block";
-
-               d3.select(this).style("fill", "red")
-               .raise();
     })
     .on("mouseout", function(d){
-      // d3.selectAll("text.car").remove()
-      // d3.select(this).lower();
-
-               d3.select(this).style("fill", "lightblue")
-               .lower();
-               var tooltipDiv = document.getElementById('tooltip');
-               tooltipDiv.style.display = "none";
+      d3.selectAll("text.car").remove()
+      d3.select(this).lower();
     })
 
 d3.select("svg").append("g")

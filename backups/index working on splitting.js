@@ -48,7 +48,7 @@ async function init() {
         d.rape_revised= +d.rape_revised;
         d.robbery= +d.robbery;
         d.violent_crime= +d.violent_crime;
-        d.comb_rape = +d.rape_legacy + d.rape_revised;
+        d.rape = +d.rape_legacy + d.rape_revised;
         d.total_crime = +d.violent_crime + d.property_crime;
         d.year = +d.year;
         const test = state_names.filter(function (e){
@@ -67,6 +67,7 @@ var set_data = function(data, year) {
      var dropdownChange = function() {
        d3.selectAll("#mainchartst").select("svg").remove();
        d3.selectAll("#mainchart").select("svg").remove();
+       d3.selectAll("#subchart").select("svg").remove();
        var chart1 = d3.select("#mainchart").append("svg");  //selectAll("body")
        var newyear = d3.select(this).property('value');
        fill_plot(data,newyear);
@@ -94,6 +95,7 @@ var set_data = function(data, year) {
          var dropdownChangeSt = function() {
            d3.selectAll("#mainchartst").select("svg").remove();
            d3.selectAll("#mainchart").select("svg").remove();
+           d3.selectAll("#subchart").select("svg").remove();
            var chart2 = d3.select("#mainchartst").append("svg");//selectAll("body")
            var newstate = d3.select(this).property('value');
            fill_plot_st(data,newstate)

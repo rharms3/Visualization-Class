@@ -1,5 +1,5 @@
 // Index-st.js - used for the State view of the data
-var fill_plot_st_detail_working = function(data, year, state) {  //build the plot
+var fill_plot_st_detail_working = function(data, year, state, statename) {  //build the plot
 
 var structuredData = transformData(data);
 
@@ -16,6 +16,7 @@ function transformData(dataset) {
           state_abbr: d.state_abbr,
           statename: d.statename,
           population: d.population,
+          total_crime: d.total_crime,
           crime_type: key,
           number: d[key]
         });
@@ -33,9 +34,11 @@ function transformData(dataset) {
     const width = ( 300 ); //700
     const padding = ( 5 );
 
+    d3.selectAll("#subchart").select("svg").remove();
     var chart3 = d3.select("#subchart")
+      .append("svg")
       .attr("width",(width + (margin * 2)))
-      .attr("height",(height + (margin * 3)));
+      .attr("height",(height + (margin * 3) + 25));
 
     var ylength = d3.max(data, function(data) {if (data.state_abbr == state && data.year == year){ return data.number};});
     var nest_band = d3.nest().key(function(data) { return data.crime_type;}).entries(data);
@@ -57,9 +60,9 @@ function transformData(dataset) {
       .attr("transform","translate("+(margin + 10)+","+ (margin-10) +")")
       .call(yAxis);
 
-      chart3.append("g") //d3.select("svg").append("text")
+      chart3.append("text") //d3.select("svg").append("text")
       .attr("class","yaxislab")
-      .attr("transform","translate("+ (margin - 30) +","+ ((height / 2)+(margin *2)) +") rotate(270)")
+      .attr("transform","translate("+ (margin - 30) +","+ ((height / 2)+(margin *2) + 25) +") rotate(270)")
       .text("Number of Incidents");
 
       chart3.append("g") //d3.select("svg").append("g")
@@ -68,13 +71,19 @@ function transformData(dataset) {
       .selectAll('text')
         .style('text-anchor', 'end')
         .style('font-size', '12px')
-        .attr('transform', 'rotate(-45) translate(-10, -5)');;
+        .attr('transform', 'rotate(-45) translate(-10, -5)');
 
-      chart3.append("g") //d3.select("svg").append("text")
+      chart3.append("text") //d3.select("svg").append("text")
       .attr("class","xaxislab")
-      .attr("transform","translate("+ ((margin * 2) + (width / 2))+","+(height + margin + 95)+")")
+      .attr("transform","translate("+ ((margin * 2) + (width / 2))+","+(height + margin + 105)+")")
       .style('text-anchor', 'end')
       .text("Types of Crime");
+
+      chart3.append("text")
+      .attr("class","stdethd")
+      .data(data)
+      .attr("transform","translate("+ 10 +","+20+")") // + (width / 2) with margin
+      .text("Breakdown of " + statename + "(" + state + ")" + " for " + year);//}, "(", state,")","     ",year);
 
      chart3.append("g") //d3.select("svg")
       // .attr("width",width + margin + margin)
@@ -100,16 +109,21 @@ function transformData(dataset) {
     d3.selectAll('rect')
     .on("mouseover", function(d){
       //Get this circles's x/y values, then augment for the tooltip
-      var xPosition = parseFloat(d3.mouse(this)[0]);// + 88;
-      var yPosition = parseFloat(d3.mouse(this)[1]);//+70;// - 29;
+      // var xPosition = parseFloat(d3.mouse(this)[0]+1200);// + 88;
+      // var yPosition = parseFloat(d3.mouse(this)[1]+110);//+70;// - 29;
+      var xPosition = d3.event.pageX + 10;// + 88;
+      var yPosition = d3.event.pageY + 10;//+70;// - 29;
+current_position = d3.mouse(this);
 
       const formater = d3.format(',d');
-      var tooltipDiv = document.getElementById('tooltip');
-      tooltipDiv.innerHTML = d.statename + " ("+ d.state_abbr + ") " + "<br/>" + "Year = " +d.year + "<br/>" + "Population = "
-      + formater(d.population) + "<br/>" + "Total Crime = " + formater(d.total_crime);
-      tooltipDiv.style.top = yPosition + "px"; //current_position[1];
-      tooltipDiv.style.left = xPosition + "px"; //current_position[0];
-      tooltipDiv.style.display = "block";
+      const performater = d3.format('.2%')
+      var tooltipDivst = document.getElementById('tooltipst');
+      tooltipDivst.innerHTML = d.crime_type.charAt(0).toUpperCase() + d.crime_type.slice(1).replace(/_/g," ") + " = " + formater(d.number) + "<br/>"
+      + "Percent of Total = " + performater((d.number / d.total_crime));
+      tooltipDivst.style.top = yPosition + "px"; //current_position[1]; yPosition + "px"
+      tooltipDivst.style.left = xPosition + "px"; //current_position[0]; xPosition + "px"
+      tooltipDivst.style.display = "block";
+      tooltipDivst.style.height = 35 +"px";
 
       d3.select(this).style("fill", "red")
       .raise();
@@ -117,17 +131,7 @@ function transformData(dataset) {
 
     .on("mouseout", function(d){
       d3.select(this).style("fill", "lightblue").lower();
-      var tooltipDiv = document.getElementById('tooltip');
-      tooltipDiv.style.display = "none";
+      var tooltipDivst = document.getElementById('tooltipst');
+      tooltipDivst.style.display = "none";
     })
-
-    // .on("click", function(d){
-    //   d3.selectAll("svg2").remove();
-    //   svg2 = d3.select("#nd-box").append("svg2"); //selectAll("bod")
-    //   var tooltipDiv = document.getElementById('tooltip');
-    //   tooltipDiv.style.display = "none";
-    //   fill_plot_st(data,state);  // not use new year but open new graph i think
-    //     })
-
-
   };

@@ -81,7 +81,7 @@ var fill_plot_st = function(data, state) {  //build the plot
       //Get this circles's x/y values, then augment for the tooltip
       var xPosition = parseFloat(d3.mouse(this)[0]+200);// + 88;
       var yPosition = parseFloat(d3.mouse(this)[1]+115);//+70;// - 29;
-
+current_position = d3.mouse(this);
       const formater = d3.format(',d');
       var tooltipDiv = document.getElementById('tooltip');
       tooltipDiv.innerHTML = d.statename + " ("+ d.state_abbr + ") " + "<br/>" + "Year = " +d.year + "<br/>" + "Population = "
@@ -109,7 +109,8 @@ var fill_plot_st = function(data, state) {  //build the plot
       tooltipDiv.style.display = "none";
       newyear = d.year; //data.year; //"All";
       newstate = d.state_abbr
-      fill_plot_st_detail_working(data,newyear,newstate); //fill_plot_st(data,state);  // not use new year but open new graph i think
+      newstatename = d.statename;
+      fill_plot_st_detail_working(data,newyear,newstate,newstatename); //fill_plot_st(data,state);  // not use new year but open new graph i think
         })
 
     chart2.append("g")//d3.select("svg").append("g")

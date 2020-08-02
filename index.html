@@ -1,18 +1,55 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> First GO</title>
+    <title> Crime In the US (1998 - 2008)</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="index working on splitting.js"></script>
+    <script src="index-yr.js"></script>
+    <script src="index-st.js"></script>
+    <!-- <script src="index-st-detail.js"></script> -->
+    <script src="index-st-detail - working.js"></script>
+
     <link rel="stylesheet" href="index.css"> <!--"folder/style.css" if in a folder -->
-    <!-- GET https://developer.nrel.gov/api/alt-fuel-stations/v1.json?limit=1&api_key=GTdSSq8cUfFYoEHLlSiO3ehBk5TnZosaXv7BTJSR -->
+
   </head>
   <body>
-    <h1> Total Crime Per State Per Capita </h1>
-    <div id="tooltip" style="display:none;position:absolute;z-index:1001;background-color:gray"></div>
-    
-    <svg></svg>
+    <h1> US Total Crime Per State Per Capita </h1>
+    <div id="tooltip" style="display:none;position:absolute;width:200px;height:75px;padding:2px;z-index:1001;background-color:white;border:2px solid black"></div>
 
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="index.js"></script>
+    <h2 id="yearselect"> Year Selection</h2><div id='vis-container'></div><h2 id="stateselect"> State Selection</h2><div id='vis-container-state'></div>
+
+    <!-- <div id="svg-spot"></div> -->
+    <div class="container">
+        <div id="st-box">
+            <p>
+This is a test to place some text information onto the output.
+This will help put some informtion onto the page that will explain
+the meaning of the chart and graphis.
+            </p>
+          <hr style="border: 2px solid black;" />
+        </br>
+            <p>
+            test writing # 2 that may or may not need working
+          </br>
+        </input style="text" id = "yearid"></input>
+          </p>
+        </div>
+
+        <div id="nd-box">
+            <div id="mainchart"></div>
+            <div id="mainchartst"></div>
+            <svg></svg>
+        </div>
+
+        <div id="rd-box">
+            <div id="subchart"></div>
+            <svg></svg>
+        </div>
+  </div> <!-- class div -->
+
+    <!-- <svg></svg> -->
+
+    <!-- <script src="index.js"></script> -->
 
   </body>
 </html>

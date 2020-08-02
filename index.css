@@ -6,38 +6,72 @@ circle {
           fill: lightblue;
           stroke: black;
         }
-/* comments code */
-/* line {
-  color: red;
-} */
-
 h1 {
   color: green;
   font-size: 30px;
   font-style: italic;
+  text-align: center;
 }
-.car{
-  color: green;
-  font-size:20px;
-  font-style:italic;
-  font-weight: bold;
-  /* letter-spacing: 5px; */
+.statetext{
+  color: black;
+  font-weight: 900;
+  font-size: 15px;
+  stroke: black;
 }
-
-.popup{
-  // create a box that shows all data??
-}
-
 .xaxislab{
-  color: lightblue;
-  font-size:15px;
-  font-weight:bold;
+  /* color: lightblue; */
+  font-size:20px;
+  font-weight:900;
 }
 .yaxislab{
-  color: lightblue;
-  font-size:15px;
-  font-weight:bold;
+  /* color: lightblue; */
+  font-size:20px;
+  font-weight:900;
 }
-/* svg {
-  color:red;
-} */
+
+#yearselect {display:inline-block;margin-right:10px; width:150px;padding: 0 0 0 275px;}
+#vis-container {display:inline-block; width:100px; }
+#stateselect {display:inline-block;margin-right:10px; width:150px;}
+#vis-container-state {display:inline-block;margin-right:10px; width:100px; }
+
+.container {
+            width:auto; /*1200px;*/
+            height:auto; /*900px;*/
+            /* background-color:green; */
+            padding-top:15px;
+            padding-left:5px;
+            padding-right:5px;
+        }
+        #st-box {
+            float:left;
+            width:200px;
+            height:400px;
+            background-color:green;
+            border:solid black;
+        }
+        #nd-box {
+            float:left;
+            width:700px; /*800px*/
+            height:550px; /*600px;*/
+            background-color:yellow;
+            border:solid black;
+            margin-left:20px;
+        }
+        #rd-box {
+            float:left;  /*right*/
+            width:400px;
+            height:475px;
+        /*    background-color:orange;*/
+            border:solid black;
+            margin-left:20px;
+        }
+
+  #yearid{
+    color: magenta;
+    font-weight: 900;
+    font-size: 15px;
+    width: 75px;
+  }
+        /* h1 {
+            color:Green;
+        }  */

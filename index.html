@@ -1,55 +1,85 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> Crime In the US (1998 - 2008)</title>
+    <title> Crime In the US (1998 - 2018)</title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="index working on splitting.js"></script>
     <script src="index-yr.js"></script>
     <script src="index-st.js"></script>
-    <!-- <script src="index-st-detail.js"></script> -->
-    <script src="index-st-detail - working.js"></script>
-
+    <script src="index-st-detail.js"></script>
+    
     <link rel="stylesheet" href="index.css"> <!--"folder/style.css" if in a folder -->
 
   </head>
   <body>
-    <h1> US Total Crime Per State Per Capita </h1>
+    <h1> US Total Crime Per State Per Capita (1998-2018)</h1>
     <div id="tooltip" style="display:none;position:absolute;width:200px;height:75px;padding:2px;z-index:1001;background-color:white;border:2px solid black"></div>
+    <div id="tooltipst" style="display:none;position:absolute;width:200px;height:50px;padding:2px;z-index:1001;background-color:white;border:2px solid black"></div>
 
     <h2 id="yearselect"> Year Selection</h2><div id='vis-container'></div><h2 id="stateselect"> State Selection</h2><div id='vis-container-state'></div>
 
-    <!-- <div id="svg-spot"></div> -->
     <div class="container">
-        <div id="st-box">
-            <p>
-This is a test to place some text information onto the output.
-This will help put some informtion onto the page that will explain
-the meaning of the chart and graphis.
-            </p>
-          <hr style="border: 2px solid black;" />
-        </br>
-            <p>
-            test writing # 2 that may or may not need working
-          </br>
-        </input style="text" id = "yearid"></input>
-          </p>
-        </div>
 
+<!-- End of 1st box in Container setup -->
+        <div id="st-box">
+          <H4 style="margin-top:5;margin-bottom:5px">H1B Employment Analysis:</H4>
+     <p style="color:#666;font-size:13px">
+         We will be studying the H1B application data from 2011 - 2016
+         provided by USCIS (United States Citizenship and Immigration Services).
+     </p>
+     <p style="color:#999;font-size:12px;">
+         "The US H-1B visa is a non-immigrant visa that allows US companies to
+         employ graduate level workers in specialty occupations that require
+         theoretical or technical expertise in specialized fields such as in
+         IT, finance, engineering, mathematics, science, medicine, etc." - Wikipedia
+     </p>
+     <H4>Geographical Distribution:</H4>
+     <p style="color:#666;font-size:13px">
+         The map shows the geographical distribution of H1B applications (2011 - 2016) across USA.
+     <ul>
+         <li style="color:#666;font-size:13px">Top three states with highest H1B employments are <b>New York, Texas & California.</b></li>
+         <li style="color:#666;font-size:13px">We have used log scale to display the color.</li>
+         <li style="color:#666;font-size:13px">Most of the H1B jobs are concentrated to few specific cities/areas.</li>
+     </ul>
+     </p>
+
+     <p style="color:#666;font-size:13px">
+         The color of each state is based on the number of applications (The legend is shown below the map).
+     </p>
+
+     <p style="color:#666;font-size:13px">
+         The red circles highlights <b>50</b> top city provided as employment location in H1B Applications. The size of the circles depends
+         on the number of applications.
+     </p>
+     <p style="color:#666;font-size:13px">
+         Click on the checkbox below to hide the red circles, which showing details of the cities.
+     </p>
+
+            <p class="info">
+              Data Sourced from the FBI Uniform Crime Reporting
+            </br>
+Offenses Known to Law Enforcement—Includes information about violent crime
+offenses (murder and nonnegligent manslaughter, rape, robbery, and aggravated assault)
+and property crime offenses (burglary, larceny-theft, motor vehicle theft, and arson).
+            </p>
+        </div>
+<!-- End of 1st box in Container setup -->
+
+<!-- Start of 2nd box in Container setup -->
         <div id="nd-box">
             <div id="mainchart"></div>
             <div id="mainchartst"></div>
             <svg></svg>
         </div>
+<!-- End of 2nd box in Container setup -->
 
+<!-- Start of 3rd box in Container setup -->
         <div id="rd-box">
             <div id="subchart"></div>
             <svg></svg>
         </div>
-  </div> <!-- class div -->
+<!-- End of 3rd box in Container setup -->
 
-    <!-- <svg></svg> -->
-
-    <!-- <script src="index.js"></script> -->
-
+  </div>
   </body>
 </html>

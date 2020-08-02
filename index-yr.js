@@ -86,7 +86,8 @@ current_position = d3.mouse(this);
       tooltipDiv.style.display = "none";
       newyear = d.year; //data.year; //"All";
       newstate = d.state_abbr
-      fill_plot_st_detail_working(data,newyear,newstate);  // not use new year but open new graph i think
+      newstatename = d.statename;
+      fill_plot_st_detail_working(data,newyear,newstate,newstatename);  // not use new year but open new graph i think
     })
 
     chart1.append("g")//d3.select("svg").append("g")
@@ -108,6 +109,9 @@ current_position = d3.mouse(this);
 
     chart1.append("text")//d3.select("svg").append("text")
     .attr("class","xaxislab")
-    .attr("transform","translate("+ (margin + (width / 2))+","+(height + margin + 55)+")")
-    .text("Total Crime");
+    .attr("transform","translate("+ ((width / 2))+","+(height + margin + 55)+")")
+    .text("Total Crime")
+    .selectAll('text')
+    .style('text-anchor', 'end')
+    .style('font-size', '12px');
   };

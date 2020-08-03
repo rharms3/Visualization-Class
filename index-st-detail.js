@@ -43,8 +43,8 @@ function transformData(dataset) {
     var ylength = d3.max(data, function(data) {if (data.state_abbr == state && data.year == year){ return data.number};});
     var nest_band = d3.nest().key(function(data) { return data.crime_type;}).entries(data);
 
-    var yScale = d3.scaleLinear().range([height,0]).domain([0,ylength]);
-    var xScale = d3.scaleBand().domain(nest_band.map(function(data) {return data.key})).range([0,width]).padding(0.1);
+    var yScale = d3.scaleLinear().domain([0,ylength]).range([height,0]);
+    var xScale = d3.scaleBand().domain(nest_band.map(d => d.key)).range([0,width]).padding(0.1);//function(data) {return data.key})
 
   //  xScale.domain(data.map(function(data) {return data.crime_type;}));//{ if (data.state_abbr == state && data.year == year) {return data.crime_type}; }));
   //  yScale.domain(d3.extent(data, function(data){if (data.state_abbr == state && data.year == year) {return data.number}; }));
@@ -79,32 +79,31 @@ function transformData(dataset) {
       .style('text-anchor', 'end')
       .text("Types of Crime");
 
+//title
       chart3.append("text")
       .attr("class","stdethd")
       .data(data)
       .attr("transform","translate("+ 10 +","+20+")") // + (width / 2) with margin
       .text("Types of crime for " + statename + " in " + year);//}, "(", state,")","     ",year);
 
+// restict the bigger set to a smaller temp set for the plot
+     barfiltered = data.filter(function(data) {return data.state_abbr == state & data.year == year});
+
      chart3.append("g") //d3.select("svg")
-      // .attr("width",width + margin + margin)
-      // .attr("height",height + margin + margin)
-    // .append("g")
-       .attr("transform","translate("+ 20 +","+ (margin -10)+")")
-     .selectAll("rect")
-     .data(data)
-     .enter()
-     .append("rect")
-      .filter(function(data) {return data.state_abbr == state & data.year == year;})
+      .attr("transform","translate("+ (margin+10) +","+ (margin -10)+")")
+      .selectAll("rect")
+      .data(barfiltered)
+      .enter()
+      .append("rect")
       .transition()
       .delay(function(d,i){return(i*3)})
       .duration(2000)
       .attr("fill","lightblue")
       .attr("stroke","black")
-       .attr("x", function(data) { return xScale(function(data,i) {if (data.state_abbr == state && data.year == year){ return data.crime_type};}) })
-       .attr("y", function(data) { return yScale(function(data) {if (data.state_abbr == state && data.year == year){ return data.number};}) })
+       .attr("x", function(data) { return xScale(data.crime_type);})
+       .attr("y", function(data) { return yScale(data.number);})
        .attr("width", xScale.bandwidth())//(50 - padding))
-       .attr("transform",function(data,i) { var xcoord = (width/7) * (i+1); return "translate("+ xcoord +")";})//return "translate("+ xScale(data.crime_type) +")";})
-       .attr("height", function(data) {return height - yScale(data.number);});//(height - 250));//yScale(function(data) { return data.number;}));//(height - 250));
+       .attr("height", function(data) {return height - yScale(data.number);});
 
     d3.selectAll('rect')
     .on("mouseover", function(d){
@@ -114,7 +113,6 @@ function transformData(dataset) {
       var xPosition = d3.event.pageX + 10;// + 88;
       var yPosition = d3.event.pageY + 10;//+70;// - 29;
 current_position = d3.mouse(this);
-
       const formater = d3.format(',d');
       const performater = d3.format('.2%')
       var tooltipDivst = document.getElementById('tooltipst');

@@ -98,6 +98,21 @@ h1 {
               font-weight:bold;
               display:block;
             }
+        .scannot1{
+          /* color: lightblue; */
+          font-size:14px;
+          font-weight:bold;
+          display:none;
+        }
+        .scannot1d{
+          /* color: lightblue; */
+          font-size:14px;
+          font-weight:bold;
+          word-break:break-word;
+          display: inline-block;
+          word-wrap: break-word;
+          line-break: strict;;
+        }
         /* h1 {
             color:Green;
         }  */

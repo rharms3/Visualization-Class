@@ -143,39 +143,36 @@ current_position = d3.mouse(this);
     .style('text-anchor', 'end')
     .style('font-size', '14px');
 
+
+//  annotation configuration below
+
     chart2.append('rect')
-    .attr("transform","translate("+ ((margin + 145 ))+","+(120)+")")
-    .attr("class", function() {if (state != '') {return "mcannot1d"} else {return "mcannot1" };})
+    .attr("transform","translate("+ ((margin + 415 ))+","+(20)+")")
+    .attr("class", function() {if (state != '') {return "scannot1d"} else {return "scannot1" };})
     .attr("width", 215)
-    .attr("height", 25)
+    .attr("height", 50)
     .style("stroke","black")
     .style('corners','round')
     .style("fill", "yellow");
 
     chart2.append('text')
-    .attr("class",function() {if (state != '') {return "mcannot1d"} else {return "mcannot1" };})
-    .attr("transform","translate("+ ((margin + 150 ))+","+(135)+")")
-    .text("Simialr clustering by state is seen")
-    .selectAll('text')
-    .style('text-anchor', 'end');
+    .attr("class",function() {if (state != '') {return "scannot1d"} else {return "scannot1" };})
+    .attr("transform","translate("+ ((margin + 420 ))+","+(35)+")")
+    .attr("width",210)
+    .text("Some states show decrease over ")
+    .append('text')
+    .text("time while others fluctuate year to year");
 
-    chart2.append("line")
-    .attr("x1",410)
-    .attr("y1", 130)
-    .attr("x2", 475)
-    .attr("y2", 125)
-    .attr("class",function() {if (state != '') {return "mcannot1d"} else {return "mcannot1" };})
-     .style("stroke-width", 2)
-     .style("stroke", "black");
+    chart2.append('text')
+    .attr("class",function() {if (state != '') {return "scannot1d"} else {return "scannot1" };})
+    .attr("transform","translate("+ ((margin + 420 ))+","+(50)+")")
+    .attr("width",210)
+    .text("time while others fluctuate year to");
 
-     chart2.append("ellipse")
-      .attr("cx", 510)
-      .attr("cy", 115)
-      .attr("rx", 45)
-      .attr("ry", 15)
-      .attr("class",function() {if (state != '') {return "mcannot1d"} else {return "mcannot1" };})
-      .style("fill","none")
-      .style("stroke-width",2)
-      .style("stroke","black");
+    chart2.append('text')
+    .attr("class",function() {if (state != '') {return "scannot1d"} else {return "scannot1" };})
+    .attr("transform","translate("+ ((margin + 420 ))+","+(65)+")")
+    .attr("width",210)
+    .text("year.");
 
   };

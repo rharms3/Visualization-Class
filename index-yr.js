@@ -116,7 +116,7 @@ current_position = d3.mouse(this);
     .style('font-size', '12px');
 
     headertext = function(data) {if (year != 'All') {return "Total Crimes per State Per Year - " + year} else {return "Total Crimes per State Per Year"};};
-    console.log("header text = ", headertext);
+
     chart1.append("text")//d3.select("svg").append("text")
     .attr("class","xaxislab")
     .data(data)
@@ -128,7 +128,7 @@ current_position = d3.mouse(this);
 
     classtest1 = function(data) {if (year != 'All') {return "mcannot1"} else {return "mcannot1d"};};
     classtest2 = function(data) {if (year != 'All') {return "mcannot2"} else {return "mcannot2d"};};
-
+console.log("class test1 =", classtest1)
     chart1.append('rect')
     .attr("transform","translate("+ ((margin + 145 ))+","+(120)+")")
     .attr("class",classtest1)

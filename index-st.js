@@ -147,7 +147,7 @@ current_position = d3.mouse(this);
 //  annotation configuration below
 
     chart2.append('rect')
-    .attr("transform","translate("+ ((margin + 415 ))+","+(20)+")")
+    .attr("transform","translate("+ ((margin + 415 ))+","+(35)+")")
     .attr("class", function() {if (state != '') {return "scannot1d"} else {return "scannot1" };})
     .attr("width", 215)
     .attr("height", 50)
@@ -157,7 +157,7 @@ current_position = d3.mouse(this);
 
     chart2.append('text')
     .attr("class",function() {if (state != '') {return "scannot1d"} else {return "scannot1" };})
-    .attr("transform","translate("+ ((margin + 420 ))+","+(35)+")")
+    .attr("transform","translate("+ ((margin + 420 ))+","+(50)+")")
     .attr("width",210)
     .text("Some states show decrease over ")
     .append('text')
@@ -165,13 +165,13 @@ current_position = d3.mouse(this);
 
     chart2.append('text')
     .attr("class",function() {if (state != '') {return "scannot1d"} else {return "scannot1" };})
-    .attr("transform","translate("+ ((margin + 420 ))+","+(50)+")")
+    .attr("transform","translate("+ ((margin + 420 ))+","+(65)+")")
     .attr("width",210)
     .text("time while others fluctuate year to");
 
     chart2.append('text')
     .attr("class",function() {if (state != '') {return "scannot1d"} else {return "scannot1" };})
-    .attr("transform","translate("+ ((margin + 420 ))+","+(65)+")")
+    .attr("transform","translate("+ ((margin + 420 ))+","+(80)+")")
     .attr("width",210)
     .text("year.");
 

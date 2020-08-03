@@ -83,7 +83,7 @@ function transformData(dataset) {
       .attr("class","stdethd")
       .data(data)
       .attr("transform","translate("+ 10 +","+20+")") // + (width / 2) with margin
-      .text("Breakdown of " + statename + "(" + state + ")" + " for " + year);//}, "(", state,")","     ",year);
+      .text("Types of crime for " + statename + " in " + year);//}, "(", state,")","     ",year);
 
      chart3.append("g") //d3.select("svg")
       // .attr("width",width + margin + margin)

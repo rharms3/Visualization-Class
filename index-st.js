@@ -146,8 +146,6 @@ current_position = d3.mouse(this);
 
     classtest1 = function(data) {if (year != 'All') {return "mcannot1"} else {return "mcannot1d"};};
     classtest2 = function(data) {if (year != 'All') {return "mcannot2"} else {return "mcannot2d"};};
-    console.log("class 1 =",classtest1);
-    console.log("class 2 =",classtest2);
 
     chart2.append('rect')
     .attr("transform","translate("+ ((margin + 145 ))+","+(120)+")")

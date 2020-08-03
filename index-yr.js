@@ -115,23 +115,19 @@ current_position = d3.mouse(this);
     .style('text-anchor', 'end')
     .style('font-size', '12px');
 
-    headertext = function(data) {if (year != 'All') {return "Total Crimes per State Per Year - " + year} else {return "Total Crimes per State Per Year"};};
-
     chart1.append("text")//d3.select("svg").append("text")
     .attr("class","xaxislab")
     .data(data)
     .attr("transform","translate("+ ((margin))+","+(25)+")")
-    .text(headertext)//"Breakdown of Total Crimes per State Per Year")
+    .text(function(data) {if (year != 'All') {return "Total Crimes per State Per Year - " + year} else {return "Total Crimes per State Per Year"};})//"Breakdown of Total Crimes per State Per Year")
     .selectAll('text')
     .style('text-anchor', 'end')
     .style('font-size', '14px');
 
-    classtest1 = function(data) {if (year != 'All') {return "mcannot1"} else {return "mcannot1d"};};
-    classtest2 = function(data) {if (year != 'All') {return "mcannot2"} else {return "mcannot2d"};};
-console.log("class test1 =", classtest1)
+
     chart1.append('rect')
     .attr("transform","translate("+ ((margin + 145 ))+","+(120)+")")
-    .attr("class",classtest1)
+    .attr("class",function() {if (year != 'All') {return "mcannot1"} else {return "mcannot1d"};})
     .attr("width", 215)
     .attr("height", 25)
     .style("stroke","black")
@@ -139,7 +135,7 @@ console.log("class test1 =", classtest1)
     .style("fill", "yellow");
 
     chart1.append('text')
-    .attr("class",classtest1)
+    .attr("class",function() {if (year != 'All') {return "mcannot1"} else {return "mcannot1d"};})
     .attr("transform","translate("+ ((margin + 150 ))+","+(135)+")")
     .text("Simialr clustering by state is seen")
     .selectAll('text')
@@ -150,7 +146,7 @@ console.log("class test1 =", classtest1)
     .attr("y1", 130)
     .attr("x2", 475)
     .attr("y2", 125)
-    .attr("class",classtest1)
+    .attr("class",function() {if (year != 'All') {return "mcannot1"} else {return "mcannot1d"};})
      .style("stroke-width", 2)
      .style("stroke", "black");
 
@@ -159,7 +155,7 @@ console.log("class test1 =", classtest1)
       .attr("cy", 115)
       .attr("rx", 45)
       .attr("ry", 15)
-      .attr("class",classtest1)
+      .attr("class",function() {if (year != 'All') {return "mcannot1"} else {return "mcannot1d"};})
       .style("fill","none")
       .style("stroke-width",2)
       .style("stroke","black");
@@ -168,12 +164,12 @@ console.log("class test1 =", classtest1)
     .attr("transform","translate("+ ((margin + 300 ))+","+(390)+")")
     .attr("width", 275)
     .attr("height", 25)
-    .attr("class",classtest2)
+    .attr("class",function() {if (year != 'All') {return "mcannot2"} else {return "mcannot2d"};})
     .style("stroke","black")
     .style("fill", "yellow");
 
     chart1.append("text")//d3.select("svg").append("text")
-    .attr("class",classtest2)
+    .attr("class",function() {if (year != 'All') {return "mcannot2"} else {return "mcannot2d"};})
     .attr("transform","translate("+ ((margin + 305 ))+","+(405)+")")
     .text("Not all low population states have low crime")
     .selectAll('text')
@@ -184,7 +180,7 @@ console.log("class test1 =", classtest1)
     .attr("y1", 405)
     .attr("x2", 255)
     .attr("y2", 440)
-    .attr("class",classtest2)
+    .attr("class",function() {if (year != 'All') {return "mcannot2"} else {return "mcannot2d"};})
      .style("stroke-width", 2)
      .style("stroke", "black");
 
